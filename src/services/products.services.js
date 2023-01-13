@@ -3,7 +3,7 @@ const productsModels = require('../models/products.models');
 const status = require('./status');
 
 const productSchemas = Joi.object({
-  name: Joi.string().min(3).required(),
+  name: Joi.string().min(5).required(),
 });
 
 const getAllProducts = async () => {
@@ -19,9 +19,13 @@ const getProductById = async (id) => {
 
 const create = async ({ name }) => {
   const { error } = productSchemas.validate({ name });
-  if (error) return { status: status.BAD_REQUEST, message: error.message };
+  if (error) {
+    if (error.details[0].type === 'string.min') {
+      return { status: status.UNPROCESSABLE_ENTITY, message: error.message };
+    }
+    return { status: status.BAD_REQUEST, message: error.message };
+  }
   const id = await productsModels.create({ name });
-  console.log(id, name, 'test');
   return { id, name };
 };
 
