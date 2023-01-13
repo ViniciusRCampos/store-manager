@@ -1,5 +1,7 @@
 const express = require('express');
 
+// Project: Store Manager Vinicius Campos
+
 const app = express();
 
 // não remova esse endpoint, é para o avaliador funcionar
