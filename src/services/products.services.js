@@ -1,5 +1,10 @@
+const Joi = require('joi');
 const productsModels = require('../models/products.models');
 const status = require('./status');
+
+const productSchemas = Joi.object({
+  name: Joi.string().min(3).required(),
+});
 
 const getAllProducts = async () => {
   const products = await productsModels.getAllProducts();
@@ -12,7 +17,16 @@ const getProductById = async (id) => {
   return product;
 };
 
+const create = async ({ name }) => {
+  const { error } = productSchemas.validate({ name });
+  if (error) return { status: status.BAD_REQUEST, message: error.message };
+  const id = await productsModels.create({ name });
+  console.log(id, name, 'test');
+  return { id, name };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
+  create,
 };
