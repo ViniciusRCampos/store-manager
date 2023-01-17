@@ -1,6 +1,7 @@
 const express = require('express');
 
 const productsController = require('./controllers/products.controllers');
+const salesController = require('./controllers/sales.controller');
 
 // Project: Store Manager Vinicius Campos
 
@@ -17,6 +18,8 @@ app.get('/products', productsController.getAllProducts);
 app.get('/products/:id', productsController.getProductById);
 
 app.post('/products', productsController.create);
+
+app.post('/sales', salesController.newSale);
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
