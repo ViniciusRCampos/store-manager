@@ -7,6 +7,25 @@ const newSale = async (req, res) => {
   return res.status(201).json(sale);
 };
 
+const getAllSales = async (_req, res) => {
+  const sales = await salesServices.getAllSales();
+  res.status(200).json(sales);
+};
+
+const getSaleById = async (req, res) => {
+  const { id } = req.params;
+  const sale = await salesServices.getSaleById(id);
+  console.log(sale.length, 'alou?');
+  if (!sale.error) {
+    res.status(200).json(sale);
+  } else {
+    const { status } = sale.error;
+    res.status(status).json(sale.error);
+  }
+};
+
 module.exports = {
   newSale,
+  getSaleById,
+  getAllSales,
 };
