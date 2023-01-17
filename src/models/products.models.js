@@ -1,3 +1,4 @@
+const { execute } = require('./connection');
 const connection = require('./connection');
 
 const getAllProducts = async () => {
@@ -24,9 +25,18 @@ const maxProductId = async () => {
   return maxId.id;
 };
 
+const updateProduct = async ({ name, id }) => {
+  const query = `UPDATE products
+  SET name = ?
+  WHERE id = ?`;
+  const [executeQuery] = await connection.execute(query, [name, id]);
+  return executeQuery.affectedRows;
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   create,
   maxProductId,
+  updateProduct,
 };

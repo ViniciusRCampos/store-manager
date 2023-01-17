@@ -15,7 +15,6 @@ const getAllSales = async (_req, res) => {
 const getSaleById = async (req, res) => {
   const { id } = req.params;
   const sale = await salesServices.getSaleById(id);
-  console.log(sale.length, 'alou?');
   if (!sale.error) {
     res.status(200).json(sale);
   } else {

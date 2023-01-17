@@ -29,8 +29,22 @@ const create = async ({ name }) => {
   return { id, name };
 };
 
+const updateProduct = async ({ name, id }) => {
+   const { error } = productSchemas.validate({ name });
+  if (error) {
+    if (error.details[0].type === 'string.min') {
+      return { status: status.UNPROCESSABLE_ENTITY, message: error.message };
+    }
+    return { status: status.BAD_REQUEST, message: error.message };
+  }
+  const product = await productsModels.updateProduct({ name, id });
+  if (product === 0) return { status: status.NOT_FOUND, message: 'Product not found' };
+  return product;
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   create,
+  updateProduct,
 };
