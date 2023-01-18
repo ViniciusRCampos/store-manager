@@ -26,7 +26,7 @@ const create = async ({ name }) => {
     return { status: status.BAD_REQUEST, message: error.message };
   }
   const id = await productsModels.create({ name });
-  return { id, name };
+  return { id: id.insertId, name };
 };
 
 const updateProduct = async ({ name, id }) => {

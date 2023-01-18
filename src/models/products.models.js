@@ -15,7 +15,7 @@ const getProductById = async (id) => {
 const create = async ({ name }) => {
   const query = 'INSERT INTO products (name) VALUES(?)';
   const [newProduct] = await connection.execute(query, [name]);
-  return newProduct.insertId;
+  return newProduct;
 };
 
 const maxProductId = async () => {
