@@ -30,7 +30,7 @@ const validations = async (sales) => {
     return idValidation;
   }
   for (let i = 0; i < sales.length; i += 1) {
-    const { error } = saleSchemas.validate(sales[0]);
+    const { error } = saleSchemas.validate(sales[i]);
     if (error) {
       return schemas(error);
     }

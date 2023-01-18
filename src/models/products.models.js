@@ -1,4 +1,3 @@
-const { execute } = require('./connection');
 const connection = require('./connection');
 
 const getAllProducts = async () => {
@@ -33,10 +32,18 @@ const updateProduct = async ({ name, id }) => {
   return executeQuery.affectedRows;
 };
 
+const deleteProduct = async (id) => {
+  const query = `DELETE FROM products
+  WHERE id = ?`;
+  const [result] = await connection.execute(query, [id]);
+  return result.affectedRows;
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   create,
   maxProductId,
   updateProduct,
+  deleteProduct,
 };
