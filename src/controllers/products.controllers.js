@@ -19,7 +19,6 @@ const getProductById = async (req, res) => {
 const create = async (req, res) => {
   const { name } = req.body;
   const newProduct = await productsServices.create({ name });
-  console.log(newProduct, 'controller/*  */');
     if (!newProduct.status) {
     res.status(201).json(newProduct);
   } else {
